@@ -1,0 +1,66 @@
+.form-component {
+  label {
+    margin-top: 10px;
+  }
+
+  input {
+    margin-top: 5px;
+    width: 60%;
+    height: 30px;
+    border: none;
+    background-color: rgb(224, 224, 224);
+    border-radius: 10px;
+    padding-left: 10px;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .visa-icon {
+    font-size: 30px;
+    margin-left: -50px;
+  }
+
+  .exp-label {
+    margin-top: 10px;
+  }
+
+  .date-input {
+    width: 60px;
+  }
+
+  p {
+    margin-bottom: 5px;
+  }
+
+  .order-btn {
+    padding: 10px 60px;
+    letter-spacing: 2px;
+    background-color: rgb(187, 136, 235);
+    border-radius: 5px;
+    width: 60%;
+  }
+}
+
+@media (max-width: 769px) {
+  .form-component {
+    height: 70vh;
+
+    input {
+      width: 100%;
+    }
+
+    .visa-icon {
+      height: 20px;
+      margin-top: -1px;
+    }
+
+    .order-btn {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
+}

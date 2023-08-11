@@ -1,0 +1,50 @@
+.Profile {
+  margin-top: 70px;
+
+  .cl-card {
+    box-shadow: none;
+    margin-left: 60px;
+    height: 90vh;
+  }
+
+  .cl-internal-b3fm6y,
+  .cl-navbar,
+  .cl-profileSectionTitleText,
+  .cl-internal-1e5wgnp,
+  .cl-profileSectionPrimaryButton__emailAddresses,
+  .cl-profileSectionPrimaryButton__connectedAccounts,
+  #cl-section-security,
+  .cl-profileSection__password,
+  .cl-navbarMobileMenuButton,
+  .cl-internal-1qc4dsk,
+  .cl-internal-1xg0u4s {
+    display: none;
+  }
+
+  .cl-pageScrollBox {
+    overflow-y: hidden;
+  }
+
+  .cl-headerTitle,
+  .cl-headerSubtitle {
+    align-self: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .Profile {
+    .cl-card {
+      margin-left: 0;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 281px) {
+  .Profile {
+    .cl-headerTitle {
+      font-size: 25px;
+    }
+  }
+}
