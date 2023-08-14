@@ -5,7 +5,6 @@ import { SORT_OPTIONS } from "../../components/Constants/Constants";
 import { sortProducts } from "../../redux/Reducers/ProductSlice";
 import { RxMixerHorizontal } from "react-icons/rx";
 import { COMPONENTS } from "../../components/Constants/Constants";
-import ClearCheckbox from "../../utils/ClearCheckbox";
 import HandleCheckbox, {
   ClearFilters,
   checkBoxState,
@@ -13,15 +12,17 @@ import HandleCheckbox, {
 import FetchData from "../../utils/FetchData";
 import Card from "../../components/Card/Card";
 import "./SubCategory.scss";
+import CustomPagination from "../../components/Pagination/CustomPagination";
 
 let filters = [];
 
 export default function SubCategory() {
-  const { subCategory } = useParams();
   const [selectedSortOption, setSelectedSortOption] = useState("SORT");
+  const { subCategory } = useParams();
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
-  const { products, filteredProducts, categories } = useSelector(
+  const { renderedProducts, categories } = useSelector(
     (store) => store.products
   );
 
@@ -92,22 +93,17 @@ export default function SubCategory() {
         </div>
 
         <div className="d-flex gap-1 ms-sm-2 ms-4 mt-2">
-          <p className="fw-bolder ">
-            {filteredProducts.length > 0
-              ? filteredProducts.length
-              : products.length}
-          </p>
+          <p className="fw-bolder ">{renderedProducts.length}</p>
           <p className="text-black-50 fw-bold">items</p>
         </div>
 
         <div className="subCategory-products d-flex flex-wrap justify-content-around ">
-          {filteredProducts.length > 0
-            ? filteredProducts.map((product) => {
-                return <Card product={product} key={product._id} />;
-              })
-            : products.map((product) => {
-                return <Card product={product} key={product._id} />;
-              })}
+          {renderedProducts.slice(8 * page - 8, 8 * page).map((product) => {
+            return <Card product={product} key={product._id} />;
+          })}
+        </div>
+        <div className="pagination">
+          {<CustomPagination setPage={setPage} />}
         </div>
       </section>
     </main>

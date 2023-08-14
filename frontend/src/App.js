@@ -14,7 +14,6 @@ import {
   Profile,
   Checkout,
   Orders,
-  Wishlist,
 } from "./Pages";
 import "./index.css";
 
@@ -49,7 +48,6 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/wishlist" element={<Wishlist />} />
           </Route>
           <Route path="/checkout" element={<Checkout />} />
         </Routes>

@@ -37,15 +37,7 @@ export default function DropdownComponent() {
             <FiGift /> Orders
           </Link>
         </Dropdown.Item>
-        <Dropdown.Item className="mt-3 mb-2">
-          <Link
-            id="menu-option"
-            className="custom-link d-flex gap-2 align-items-center"
-            to={"/wishlist"}
-          >
-            <MdFavoriteBorder /> Wishlist
-          </Link>
-        </Dropdown.Item>
+
         <Dropdown.Item className="mt-3 mb-2">
           <Link
             id="menu-option"

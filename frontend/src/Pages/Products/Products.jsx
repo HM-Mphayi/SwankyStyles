@@ -9,16 +9,18 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import FetchData from "../../utils/FetchData";
 import Card from "../../components/Card/Card";
 import "./Products.scss";
+import CustomPagination from "../../components/Pagination/CustomPagination";
 
 import HandleCheckbox, { ClearFilters } from "../../utils/HandleCheckbox";
 
 function Products() {
-  const [show, setShow] = useState(false);
-  const { category } = useParams();
-  const { products, subCategories, filteredProducts } = useSelector(
+  const { subCategories, renderedProducts } = useSelector(
     (store) => store.products
   );
   const [selectedSortOption, setSelectedSortOption] = useState("SORT");
+  const [show, setShow] = useState(false);
+  const [page, setPage] = useState(1);
+  const { category } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -60,7 +62,7 @@ function Products() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  let x = [];
+  const array = Array(10);
 
   return (
     <main className="products d-flex w-100">
@@ -104,22 +106,17 @@ function Products() {
         </div>
 
         <div className="d-flex gap-1 ms-sm-2 ms-4 mt-2">
-          <p className="fw-bolder ">
-            {filteredProducts.length > 0
-              ? filteredProducts.length
-              : products.length}
-          </p>
+          <p className="fw-bolder ">{renderedProducts.length}</p>
           <p className="text-black-50 fw-bold">items</p>
         </div>
 
         <div className="category-products d-flex flex-wrap justify-content-around ">
-          {filteredProducts.length > 0
-            ? filteredProducts.map((product) => {
-                return <Card product={product} key={product._id} />;
-              })
-            : products.map((product) => {
-                return <Card product={product} key={product._id} />;
-              })}
+          {renderedProducts.slice(page * 10 - 10, page * 10).map((product) => {
+            return <Card product={product} key={product._id} />;
+          })}
+        </div>
+        <div className="d-flex align-items-center align-content-center">
+          {<CustomPagination setPage={setPage} />}
         </div>
       </section>
     </main>

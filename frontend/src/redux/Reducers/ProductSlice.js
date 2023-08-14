@@ -9,6 +9,7 @@ const initialState = {
   subCategories: [],
   categories: [],
   filteredProducts: [],
+  renderedProducts: [],
   wishlistProducts: [],
 };
 
@@ -19,6 +20,7 @@ export const productSlice = createSlice({
     setProducts: (state, actions) => {
       state.products = actions.payload;
       state.filteredProducts = [];
+      state.renderedProducts = actions.payload;
     },
 
     setSubCategories: (state, actions) => {
@@ -50,8 +52,10 @@ export const productSlice = createSlice({
         });
 
         state.filteredProducts = matchedProducts;
+        state.renderedProducts = matchedProducts;
       } else {
         state.filteredProducts = [];
+        state.renderedProducts = state.products;
       }
     },
 
@@ -65,12 +69,12 @@ export const productSlice = createSlice({
             sortedProducts = state.filteredProducts.sort((a, b) => {
               return b.price - a.price;
             });
-            state.filteredProducts = sortedProducts;
+            state.renderedProducts = sortedProducts;
           } else {
             sortedProducts = state.products.sort((a, b) => {
               return b.price - a.price;
             });
-            state.products = sortedProducts;
+            state.renderedProducts = sortedProducts;
           }
           break;
 
@@ -79,12 +83,12 @@ export const productSlice = createSlice({
             sortedProducts = state.filteredProducts.sort((a, b) => {
               return a.price - b.price;
             });
-            state.filteredProducts = sortedProducts;
+            state.renderedProducts = sortedProducts;
           } else {
             sortedProducts = state.products.sort((a, b) => {
               return a.price - b.price;
             });
-            state.products = sortedProducts;
+            state.renderedProducts = sortedProducts;
           }
           break;
         default:
