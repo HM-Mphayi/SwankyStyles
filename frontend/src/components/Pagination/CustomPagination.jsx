@@ -6,10 +6,11 @@ export default function CustomPagination({ setPage }) {
   const { renderedProducts } = useSelector((store) => store.products);
   const [active, setActive] = useState(1);
 
-  const handleSelectedPage = (selectedPage) => {
+  function handleSelectedPage(selectedPage) {
     setPage(selectedPage);
     setActive(selectedPage);
-  };
+    window.scrollTo(0, 0);
+  }
 
   let pageNumbers = [...Array(Math.ceil(renderedProducts.length / 8))].map(
     (_, i) => {

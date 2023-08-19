@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { SORT_OPTIONS } from "../../components/Constants/Constants";
-import { sortProducts } from "../../redux/Reducers/ProductSlice";
+import { clearState, sortProducts } from "../../redux/Reducers/ProductSlice";
 import { RxMixerHorizontal } from "react-icons/rx";
 import { COMPONENTS } from "../../components/Constants/Constants";
 import FetchData from "../../utils/FetchData";
@@ -28,8 +28,9 @@ export default function SubCategory() {
 
   useEffect(() => {
     const URL = `${process.env.REACT_APP_API_URL}/product/subCategory/${subCategory}`;
-    setSelectedSortOption("SORT");
+    dispatch(clearState());
     ClearFilters();
+    setSelectedSortOption("SORT");
     FetchData(URL, dispatch, COMPONENTS.Sub_Category);
   }, [subCategory]);
 
@@ -108,11 +109,11 @@ export default function SubCategory() {
         </div>
 
         <div className="d-flex gap-1 ms-sm-2 ms-4 mt-2">
-          <p className="fw-bolder ">{renderedProducts.length}</p>
+          <p className="fw-bolder ">{renderedProducts?.length}</p>
           <p className="text-black-50 fw-bold">items</p>
         </div>
 
-        <div className="subCategory-products d-flex flex-wrap justify-content-around ">
+        <div className="subCategory-products d-flex flex-wrap justify-content-center justify-content-sm-start gap-4 ">
           {renderedProducts.slice(8 * page - 8, 8 * page).map((product) => {
             return <Card product={product} key={product._id} />;
           })}

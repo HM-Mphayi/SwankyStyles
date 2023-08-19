@@ -10,13 +10,19 @@ const initialState = {
   categories: [],
   filteredProducts: [],
   renderedProducts: [],
-  wishlistProducts: [],
 };
 
 export const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
+    clearState: (state, actions) => {
+      state.products = [];
+      state.subCategories = [];
+      state.categories = [];
+      state.filteredProducts = [];
+      state.renderedProducts = [];
+    },
     setProducts: (state, actions) => {
       state.products = actions.payload;
       state.filteredProducts = [];
@@ -29,10 +35,6 @@ export const productSlice = createSlice({
 
     setCategories: (state, actions) => {
       state.categories = actions.payload;
-    },
-
-    addOrRemoveWishlistItems: (state, actions) => {
-      console.log(actions.payload);
     },
 
     filterProducts: (state, actions) => {
@@ -100,6 +102,7 @@ export const productSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  clearState,
   setProducts,
   setCategories,
   setSubCategories,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { sortProducts } from "../../redux/Reducers/ProductSlice";
+import { sortProducts, clearState } from "../../redux/Reducers/ProductSlice";
 import { COMPONENTS, SORT_OPTIONS } from "../../components/Constants/Constants";
 import { RxMixerHorizontal } from "react-icons/rx";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -27,6 +27,7 @@ function Products() {
 
   useEffect(() => {
     const URL = `${process.env.REACT_APP_API_URL}/product/category/${category}`;
+    dispatch(clearState());
     ClearFilters();
     setSelectedSortOption("SORT");
     FetchData(URL, dispatch, COMPONENTS.Category);
@@ -105,16 +106,20 @@ function Products() {
         </div>
 
         <div className="d-flex gap-1 ms-sm-2 ms-4 mt-2">
-          <p className="fw-bolder ">{renderedProducts.length}</p>
-          <p className="text-black-50 fw-bold">items</p>
+          {renderedProducts.length > 0 && (
+            <>
+              <p className="fw-bolder ">{renderedProducts.length}</p>
+              <p className="text-black-50 fw-bold">items</p>
+            </>
+          )}
         </div>
 
-        <div className="category-products d-flex flex-wrap justify-content-around ">
-          {renderedProducts.slice(page * 10 - 10, page * 10).map((product) => {
+        <div className="category-products d-flex flex-wrap justify-content-center justify-content-sm-start gap-4 ">
+          {renderedProducts.slice(page * 8 - 8, page * 8).map((product) => {
             return <Card product={product} key={product._id} />;
           })}
         </div>
-        <div className="d-flex align-items-center align-content-center">
+        <div className="pagination">
           {<CustomPagination setPage={setPage} />}
         </div>
       </section>
