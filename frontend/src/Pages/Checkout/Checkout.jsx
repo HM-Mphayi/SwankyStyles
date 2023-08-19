@@ -36,7 +36,7 @@ export default function Checkout() {
           <div className="items overflow-auto">
             {state.items?.map((item, index) => {
               return (
-                <div key={index} className="mt-2 d-flex ">
+                <div key={index} className="mt-2 d-flex gap-1">
                   <div className="image">
                     <img src={item.image} alt="" />
                   </div>

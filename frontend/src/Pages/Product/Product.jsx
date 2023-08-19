@@ -16,11 +16,7 @@ function Product() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetchProduct();
-  }, [id]);
-
-  const fetchProduct = async () => {
+  async function fetchProduct() {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/product/` + id
@@ -30,13 +26,17 @@ function Product() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
-  const decrementQuantity = () => {
+  function decrementQuantity() {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
-  };
+  }
+
+  useEffect(() => {
+    fetchProduct();
+  }, [id]);
 
   return (
     <main className="product d-flex justify-content-between w-100 flex-sm-row flex-column">
@@ -108,10 +108,6 @@ function Product() {
           <FiShoppingCart className="cartIcon" />
           ADD TO CART
         </button>
-
-        <div className="d-flex align-items-center gap-2 mt-3">
-          <MdFavoriteBorder className="wishlist-icon" /> ADD TO WISHLIST
-        </div>
       </section>
     </main>
   );

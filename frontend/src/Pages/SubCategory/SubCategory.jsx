@@ -5,67 +5,79 @@ import { SORT_OPTIONS } from "../../components/Constants/Constants";
 import { sortProducts } from "../../redux/Reducers/ProductSlice";
 import { RxMixerHorizontal } from "react-icons/rx";
 import { COMPONENTS } from "../../components/Constants/Constants";
+import FetchData from "../../utils/FetchData";
+import Card from "../../components/Card/Card";
+import CustomPagination from "../../components/Pagination/CustomPagination";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import "./SubCategory.scss";
+
 import HandleCheckbox, {
   ClearFilters,
   checkBoxState,
 } from "../../utils/HandleCheckbox";
-import FetchData from "../../utils/FetchData";
-import Card from "../../components/Card/Card";
-import "./SubCategory.scss";
-import CustomPagination from "../../components/Pagination/CustomPagination";
-
-let filters = [];
 
 export default function SubCategory() {
-  const [selectedSortOption, setSelectedSortOption] = useState("SORT");
-  const { subCategory } = useParams();
-  const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
-
   const { renderedProducts, categories } = useSelector(
     (store) => store.products
   );
+  const [selectedSortOption, setSelectedSortOption] = useState("SORT");
+  const [page, setPage] = useState(1);
+  const [show, setShow] = useState(false);
+  const { subCategory } = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const URL = `${process.env.REACT_APP_API_URL}/product/subCategory/${subCategory}`;
-    FetchData(URL, dispatch, COMPONENTS.Sub_Category);
     setSelectedSortOption("SORT");
     ClearFilters();
-    filters = [];
-    console.log(categories);
+    FetchData(URL, dispatch, COMPONENTS.Sub_Category);
   }, [subCategory]);
 
   //Handle selected sort option
-  const handleSelect = (e) => {
+  function handleSelect(e) {
     setSelectedSortOption(e.target.value);
 
     dispatch(sortProducts(e.target.value));
-  };
+  }
+
+  const renderFilters = categories.map((category) => {
+    return (
+      <div key={category}>
+        <input
+          type="checkbox"
+          id={category}
+          value={category}
+          name={category}
+          className="me-2"
+          checked={!!checkBoxState[category]}
+          onChange={(e) => {
+            HandleCheckbox(selectedSortOption, dispatch, e);
+          }}
+        />
+        <label htmlFor={category}>{category}</label>
+        <br />
+      </div>
+    );
+  });
+
+  //Filters offCanvas functions
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <main className="subCategory">
       <section className="left">
         <h2>Filters</h2>
-        <h4>Department</h4>
-        {categories.map((category) => {
-          return (
-            <div key={category}>
-              <input
-                type="checkbox"
-                id={category}
-                value={category}
-                name={category}
-                className="me-2"
-                checked={!!checkBoxState[category]}
-                onChange={(e) =>
-                  HandleCheckbox(selectedSortOption, dispatch, e)
-                }
-              />
-              <label htmlFor="Dresses">{category}</label>
-              <br />
-            </div>
-          );
-        })}
+        <h4>Departments</h4>
+        {renderFilters}
+
+        {/* Filters on mobile devices */}
+        <Offcanvas show={show} onHide={() => handleClose()}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Filters</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>{renderFilters}</Offcanvas.Body>
+        </Offcanvas>
       </section>
 
       <section className="right">
@@ -86,7 +98,10 @@ export default function SubCategory() {
                 return <option key={sortOption}>{sortOption}</option>;
               })}
             </select>
-            <p className="filters d-flex d-sm-none d-block mt-3 gap-3 align-items-center justify-content-center">
+            <p
+              onClick={handleShow}
+              className="filters d-flex d-sm-none d-block mt-3 gap-3 align-items-center justify-content-center"
+            >
               FILTERS <RxMixerHorizontal />
             </p>
           </div>

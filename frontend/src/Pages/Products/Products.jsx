@@ -4,14 +4,16 @@ import { useParams } from "react-router-dom";
 import { sortProducts } from "../../redux/Reducers/ProductSlice";
 import { COMPONENTS, SORT_OPTIONS } from "../../components/Constants/Constants";
 import { RxMixerHorizontal } from "react-icons/rx";
-import { checkBoxState } from "../../utils/HandleCheckbox";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import FetchData from "../../utils/FetchData";
 import Card from "../../components/Card/Card";
-import "./Products.scss";
 import CustomPagination from "../../components/Pagination/CustomPagination";
+import "./Products.scss";
 
-import HandleCheckbox, { ClearFilters } from "../../utils/HandleCheckbox";
+import HandleCheckbox, {
+  ClearFilters,
+  checkBoxState,
+} from "../../utils/HandleCheckbox";
 
 function Products() {
   const { subCategories, renderedProducts } = useSelector(
@@ -25,18 +27,17 @@ function Products() {
 
   useEffect(() => {
     const URL = `${process.env.REACT_APP_API_URL}/product/category/${category}`;
-    FetchData(URL, dispatch, COMPONENTS.Category);
     ClearFilters();
     setSelectedSortOption("SORT");
-    console.log("rendered");
+    FetchData(URL, dispatch, COMPONENTS.Category);
   }, [category]);
 
   //Handle selected sort option
-  const handleSelect = (e) => {
+  function handleSelect(e) {
     setSelectedSortOption(e.target.value);
 
     dispatch(sortProducts(e.target.value));
-  };
+  }
 
   const renderFilters = subCategories.map((subCategory) => {
     return (
@@ -52,7 +53,7 @@ function Products() {
             HandleCheckbox(selectedSortOption, dispatch, e);
           }}
         />
-        <label htmlFor="Dresses">{subCategory}</label>
+        <label htmlFor={subCategory}>{subCategory}</label>
         <br />
       </div>
     );
@@ -62,15 +63,20 @@ function Products() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const array = Array(10);
-
   return (
     <main className="products d-flex w-100">
       <section className="left h-50 ms-2">
         <h2 className="mt-2 mb-2">Filters</h2>
         <h4>Product Categories</h4>
-
         {renderFilters}
+
+        {/* Filters on mobile devices */}
+        <Offcanvas show={show} onHide={() => handleClose()}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Filters</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>{renderFilters}</Offcanvas.Body>
+        </Offcanvas>
       </section>
 
       <section className="right">
@@ -95,13 +101,6 @@ function Products() {
             >
               FILTERS <RxMixerHorizontal />
             </p>
-
-            <Offcanvas show={show} onHide={() => handleClose()}>
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Filters</Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>{renderFilters}</Offcanvas.Body>
-            </Offcanvas>
           </div>
         </div>
 

@@ -8,20 +8,64 @@ import "react-toastify/dist/ReactToastify.css";
 import "./FormComponent.scss";
 
 const API_URL = process.env.REACT_APP_API_URL;
+const order = {
+  userID: "",
+  recipientName: "",
+  email: "",
+  contactNumber: "",
+  deliveryAddress: "",
+  items: [],
+  total: 0,
+};
 
 export default function FormComponent({ total, items }) {
+  const [orderDetails, setOrderDetails] = useState(order);
   const { user, isLoaded } = useUser();
   const navigate = useNavigate();
+  const form = document.getElementsByClassName("form");
+  const submitButton = document.getElementById("submitOrderBtn");
 
-  const [orderDetails, setOrderDetails] = useState({
-    userID: "",
-    recipientName: "",
-    email: "",
-    contactNumber: "",
-    deliveryAddress: "",
-    items: [],
-    total: 0,
-  });
+  function handleInput(e) {
+    const { name, value } = e.target;
+    setOrderDetails((prev) => {
+      return { ...prev, [name]: value };
+    });
+  }
+
+  async function handleSubmit(e) {
+    if (form[0].checkValidity()) {
+      if (
+        orderDetails.contactNumber !== "" &&
+        orderDetails.deliveryAddress !== "" &&
+        orderDetails.email !== "" &&
+        orderDetails.items.length > 0 &&
+        orderDetails.recipientName !== "" &&
+        orderDetails.userID !== ""
+      ) {
+        e.preventDefault();
+        orderDetails.total = total;
+
+        try {
+          const response = await axios.post(`${API_URL}/order`, orderDetails);
+
+          if (response.status === 200) {
+            //Disabling the submit order button to prevent multiple orders
+            submitButton.disabled = true;
+            submitButton.style.cursor = "not-allowed";
+
+            toast.success("Order successfully");
+
+            setTimeout(() => {
+              navigate("/orders");
+            }, 2000);
+          }
+        } catch (error) {
+          toast.error("Something went wrong, please try again later");
+          console.log(error);
+        }
+      }
+    }
+  }
 
   useEffect(() => {
     if (isLoaded) {
@@ -32,65 +76,6 @@ export default function FormComponent({ total, items }) {
       orderDetails.items = items;
     }
   }, [isLoaded]);
-
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setOrderDetails((prev) => {
-      return { ...prev, [name]: value };
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    const {
-      contactNumber,
-      deliveryAddress,
-      email,
-      items,
-      recipientName,
-      userID,
-    } = orderDetails;
-
-    const form = document.getElementsByClassName("form");
-    const submitButton = document.getElementById("submitOrderBtn");
-
-    if (form[0].checkValidity()) {
-      if (
-        contactNumber !== "" &&
-        deliveryAddress !== "" &&
-        email !== "" &&
-        items.length > 0 &&
-        recipientName !== "" &&
-        userID !== ""
-      ) {
-        e.preventDefault();
-
-        //Placing the order
-        try {
-          //calculate total
-          if (total < 1000) {
-            orderDetails.total = total + 50;
-          } else {
-            orderDetails.total = total;
-          }
-
-          const res = await axios.post(`${API_URL}/order`, orderDetails);
-          console.log(res);
-          if (res.status === 200) {
-            submitButton.disabled = true;
-            submitButton.style.cursor = "not-allowed";
-
-            toast.success("Order successfully");
-            setTimeout(() => {
-              navigate("/orders");
-            }, 5000);
-          }
-        } catch (error) {
-          toast.error("Something went wrong, please try again later");
-          console.log(error);
-        }
-      }
-    }
-  };
 
   return (
     <div className="form-component">
@@ -162,7 +147,6 @@ export default function FormComponent({ total, items }) {
         </div>
 
         <label htmlFor="date" className="exp-label">
-          {" "}
           Expiration
         </label>
         <br />
@@ -198,9 +182,7 @@ export default function FormComponent({ total, items }) {
           />
         </div>
 
-        <p className="fw-bold mt-2">Subtotal: {total} ZAR</p>
-        <p className="fw-bold">Delivery: 50 ZAR</p>
-        <p className="fw-bold">Total: {total + 50} ZAR</p>
+        <p className="fw-bold">Total: {total} ZAR</p>
 
         <button
           className="order-btn mt-1 border-0 text-white "
@@ -209,7 +191,7 @@ export default function FormComponent({ total, items }) {
         >
           Place Order
         </button>
-        <ToastContainer autoClose={5000} />
+        <ToastContainer autoClose={2000} />
       </form>
     </div>
   );
