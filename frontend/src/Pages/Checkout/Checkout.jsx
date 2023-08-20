@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.PNG";
@@ -8,6 +8,8 @@ import "./Checkout.scss";
 export default function Checkout() {
   const { state } = useLocation();
   const navigate = useNavigate();
+
+  window.scrollTo(0, 0);
 
   return (
     <>

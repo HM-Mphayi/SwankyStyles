@@ -7,6 +7,9 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import "./FormComponent.scss";
 
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../../redux/Reducers/CartSlice";
+
 const API_URL = process.env.REACT_APP_API_URL;
 const order = {
   userID: "",
@@ -22,6 +25,7 @@ export default function FormComponent({ total, items }) {
   const [orderDetails, setOrderDetails] = useState(order);
   const { user, isLoaded } = useUser();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const form = document.getElementsByClassName("form");
   const submitButton = document.getElementById("submitOrderBtn");
 
@@ -52,6 +56,7 @@ export default function FormComponent({ total, items }) {
             //Disabling the submit order button to prevent multiple orders
             submitButton.disabled = true;
             submitButton.style.cursor = "not-allowed";
+            dispatch(clearCart());
 
             toast.success("Order successfully");
 

@@ -33,6 +33,7 @@ export default function Orders() {
         <h3 className="mt-2 text-secondary">Orders</h3>
         {isSignedIn &&
           orders.map((order, index) => {
+            console.log(order);
             return (
               <div
                 className="single-order flex-column d-sm-flex flex-sm-row mb-3 p-4 gap-0 gap-sm-5 justify-content-between"
