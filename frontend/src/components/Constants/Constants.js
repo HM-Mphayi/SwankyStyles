@@ -6,3 +6,7 @@ export const COMPONENTS = {
   Category: "Category",
   Sub_Category: "Sub_Category",
 };
+export const ORDER_STATUS = {
+  Pending: "Pending",
+  Delivered: "Delivered",
+};

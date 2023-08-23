@@ -1,54 +1,32 @@
 .orders {
   margin-top: 110px;
-  margin-bottom: 100px;
+  min-height: 90vh;
   padding: 10px 100px;
-  color: gray;
-  min-height: 50vh;
 
   .single-order {
-    box-shadow: 2px 4px 13px -3px rgba(0, 0, 0, 0.25);
+    box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.05);
+    padding: 10px;
     border-radius: 10px;
 
-    .left {
-      img {
-        border: 1px solid lightgray;
-        border-radius: 10px;
-        width: 120px;
-        height: 150px;
-      }
-    }
-  }
-}
-
-@media (max-width: 700px) {
-  .orders {
-    font-size: 12px;
-    padding: 10px 20px;
-
-    .single-order {
+    .items {
+      max-height: 250px;
+      overflow-y: auto;
       p {
+        font-size: 15px;
         margin-top: 0;
         margin-bottom: 5px;
+        font-weight: 500;
+        color: grey;
       }
-      .left {
-        img {
-          width: 60px;
-          height: 70px;
-        }
-      }
-      .right {
-        margin-left: 77px;
-      }
+    }
+    span {
+      font-weight: 600;
     }
   }
 }
 
-@media (max-width: 281px) {
+@media (max-width: 600px) {
   .orders {
-    .single-order {
-      .right {
-        margin-left: 64px;
-      }
-    }
+    padding: 0 12px;
   }
 }

@@ -45,7 +45,7 @@ export default function Checkout() {
                   <div className="details">
                     <p>{item.name}</p>
                     <p>QTY: {item.quantity}</p>
-                    <p>{item.price} ZAR</p>
+                    <p>{item.price.toFixed(2)} ZAR</p>
                   </div>
                 </div>
               );

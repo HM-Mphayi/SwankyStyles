@@ -68,6 +68,9 @@ export default function FormComponent({ total, items }) {
           toast.error("Something went wrong, please try again later");
           console.log(error);
         }
+      } else {
+        e.preventDefault();
+        toast.error("Missing order details");
       }
     }
   }
@@ -77,9 +80,10 @@ export default function FormComponent({ total, items }) {
       orderDetails.userID = user.id;
     }
 
-    if (orderDetails.items.length === 0 && items) {
-      orderDetails.items = items;
-    }
+    setOrderDetails((prev) => ({
+      ...prev,
+      items,
+    }));
   }, [isLoaded]);
 
   return (
@@ -187,7 +191,7 @@ export default function FormComponent({ total, items }) {
           />
         </div>
 
-        <p className="fw-bold">Total: {total} ZAR</p>
+        <p className="fw-bold">Total: {total?.toFixed(2)} ZAR</p>
 
         <button
           className="order-btn mt-1 border-0 text-white "
