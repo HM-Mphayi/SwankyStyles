@@ -1,9 +1,10 @@
 .product {
+  padding: 10px;
   .left {
     width: 50%;
     img {
-      width: 95%;
-      height: 600px;
+      width: 80%;
+      height: 500px;
     }
   }
 
@@ -50,6 +51,7 @@
 /** Mobile **/
 @media (max-width: 600px) {
   .product {
+    padding: 0;
     .left {
       width: 100%;
       display: block;

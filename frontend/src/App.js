@@ -3,18 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initCartItems } from "./redux/Reducers/CartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Home,
-  Products,
-  Product,
-  Signin,
-  Signup,
-  MasterPage,
-  SubCategory,
-  Profile,
-  Checkout,
-  Orders,
-} from "./Pages";
+import { Home, Products, Product, Signin, Signup, MasterPage } from "./Pages";
+import { SubCategory, Profile, Checkout, Orders } from "./Pages";
+import { SearchedResults } from "./Pages";
+
 import "./index.css";
 
 function App() {
@@ -44,10 +36,11 @@ function App() {
               path="products/subcategory/:subCategory"
               element={<SubCategory />}
             />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/orders" element={<Orders />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="signin" element={<Signin />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="search/:searchText?" element={<SearchedResults />} />
           </Route>
           <Route path="/checkout" element={<Checkout />} />
         </Routes>

@@ -1,6 +1,5 @@
 import React from "react";
-import { FiShoppingCart, FiGift } from "react-icons/fi";
-import { MdSearch } from "react-icons/md";
+import { FiShoppingCart } from "react-icons/fi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,35 +11,22 @@ import Cart from "../Cart/Cart.jsx";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Form from "react-bootstrap/Form";
 import Badge from "react-bootstrap/Badge";
 import DropdownComponent from "./components/Dropdown/DropdownComponent";
 import "./Navbar.scss";
+import Search from "./components/Search/Search";
 
 function NavbarComponent() {
   const cartItems = useSelector((store) => store.cart.cartItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isSignedIn, isLoaded } = useAuth();
+  const { isSignedIn } = useAuth();
 
   return (
     <>
       <Navbar className="mb-3 pt-0 fixed-top flex-column">
         <Container fluid className="top-nav">
-          <section className="left align-items-center justify-content-center gap-1 d-none d-sm-flex ">
-            <div className="search-icon ">
-              <MdSearch />
-            </div>
-
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2 shadow-none custom-input "
-                aria-label="Search"
-              />
-            </Form>
-          </section>
+          <Search />
 
           <section className="middle">
             <Navbar.Brand href="#home">

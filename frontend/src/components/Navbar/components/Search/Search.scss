@@ -1,0 +1,25 @@
+.search-component {
+  margin-left: 15px;
+  display: flex;
+
+  .search-icon {
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .custom-input {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 150px;
+    outline: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-component {
+    .custom-input {
+      display: none;
+    }
+  }
+}

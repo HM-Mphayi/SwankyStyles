@@ -15,10 +15,6 @@ export default function Card({ product }) {
         >
           <img src={product.image} alt="item" />
         </div>
-        <MdFavoriteBorder
-          className="wishlist-icon position-absolute "
-          onClick={() => console.log("added to wishlist")}
-        />
 
         <div
           className="card-details p-2"

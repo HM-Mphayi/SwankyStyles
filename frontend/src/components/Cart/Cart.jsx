@@ -39,7 +39,6 @@ export default function Cart({ open }) {
       <Offcanvas
         show={show}
         onHide={() => dispatch(toggleCart())}
-        backdrop="static"
         placement="end"
       >
         <Offcanvas.Header closeButton>

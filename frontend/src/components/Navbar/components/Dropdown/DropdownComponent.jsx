@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { useClerk, useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { FiGift } from "react-icons/fi";
-import { MdFunctions, MdLogout } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 import { GrUserSettings } from "react-icons/gr";
 
 import "./DropdownComponent.scss";
@@ -33,9 +33,10 @@ export default function DropdownComponent() {
     setAnchorEl(null);
   }
 
-  function handleSignOut() {
-    signOut();
+  async function handleSignOut() {
+    await signOut();
     setAnchorEl(null);
+    navigate("/");
   }
 
   return (

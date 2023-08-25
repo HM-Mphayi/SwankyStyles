@@ -49,10 +49,28 @@ const getProduct = async (req, res) => {
   }
 };
 
+const getSearchedProducts = async (req, res) => {
+  const { q } = req.query;
+  try {
+    const Products = await Product.find({
+      $or: [
+        { name: { $regex: q, $options: "i" } },
+        { category: { $regex: q, $options: "i" } },
+        { subCategory: { $regex: q, $options: "i" } },
+      ],
+    });
+
+    res.status(200).json(Products);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProduct,
   getHomeProducts,
   getCategoryProducts,
   getSubCategoryProducts,
+  getSearchedProducts,
 };
