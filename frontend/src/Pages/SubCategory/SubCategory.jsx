@@ -7,6 +7,7 @@ import { RxMixerHorizontal } from "react-icons/rx";
 import { COMPONENTS } from "../../components/Constants/Constants";
 import FetchData from "../../utils/FetchData";
 import Card from "../../components/Card/Card";
+import CardSkeleton from "../../components/Card/CardSkeleton/CardSkeleton";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "./SubCategory.scss";
@@ -17,7 +18,7 @@ import HandleCheckbox, {
 } from "../../utils/HandleCheckbox";
 
 export default function SubCategory() {
-  const { renderedProducts, categories } = useSelector(
+  const { renderedProducts, categories, isLoading } = useSelector(
     (store) => store.products
   );
   const [selectedSortOption, setSelectedSortOption] = useState("SORT");
@@ -113,10 +114,14 @@ export default function SubCategory() {
           <p className="text-black-50 fw-bold">items</p>
         </div>
 
-        <div className="subCategory-products d-flex flex-wrap justify-content-center justify-content-sm-start gap-4 ">
-          {renderedProducts.slice(8 * page - 8, 8 * page).map((product) => {
-            return <Card product={product} key={product._id} />;
-          })}
+        <div className="subCategory-products d-flex flex-wrap justify-content-center justify-content-sm-start gap-2 gap-sm-3 ">
+          {isLoading ? (
+            <CardSkeleton />
+          ) : (
+            renderedProducts.slice(8 * page - 8, 8 * page).map((product) => {
+              return <Card product={product} key={product._id} />;
+            })
+          )}
         </div>
         <div className="pagination">
           {<CustomPagination setPage={setPage} />}

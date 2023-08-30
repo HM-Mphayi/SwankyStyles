@@ -10,6 +10,7 @@ const initialState = {
   categories: [],
   filteredProducts: [],
   renderedProducts: [],
+  isLoading: true,
 };
 
 export const productSlice = createSlice({
@@ -23,6 +24,11 @@ export const productSlice = createSlice({
       state.filteredProducts = [];
       state.renderedProducts = [];
     },
+
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+
     setProducts: (state, actions) => {
       state.products = actions.payload;
       state.filteredProducts = [];
@@ -102,6 +108,7 @@ export const productSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setIsLoading,
   clearState,
   setProducts,
   setCategories,

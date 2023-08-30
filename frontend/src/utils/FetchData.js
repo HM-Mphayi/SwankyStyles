@@ -1,5 +1,5 @@
-import React from "react";
 import {
+  setIsLoading,
   setProducts,
   setCategories,
   setSubCategories,
@@ -11,6 +11,7 @@ const FetchData = async (URL, dispatch, component) => {
   let subCategories = [];
   let categories = [];
   try {
+    dispatch(setIsLoading(true));
     const response = await axios.get(URL);
 
     if (component === COMPONENTS.Category) {
@@ -20,7 +21,7 @@ const FetchData = async (URL, dispatch, component) => {
           (subCategory) => subCategory === product.subCategory
         );
 
-        if (!exist && product.subCategory != "N/A") {
+        if (!exist && product.subCategory !== "N/A") {
           subCategories.push(product.subCategory);
         }
       });
@@ -34,7 +35,7 @@ const FetchData = async (URL, dispatch, component) => {
           (category) => category === product.category
         );
 
-        if (!exist && product.category != "N/A") {
+        if (!exist && product.category !== "N/A") {
           categories.push(product.category);
         }
       });
@@ -43,6 +44,8 @@ const FetchData = async (URL, dispatch, component) => {
 
     //Set products
     dispatch(setProducts(response.data));
+
+    dispatch(setIsLoading(false));
   } catch (error) {
     console.log(error);
   }

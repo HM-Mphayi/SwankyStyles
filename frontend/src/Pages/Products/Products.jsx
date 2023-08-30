@@ -8,6 +8,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import FetchData from "../../utils/FetchData";
 import Card from "../../components/Card/Card";
 import CustomPagination from "../../components/Pagination/CustomPagination";
+import CardSkeleton from "../../components/Card/CardSkeleton/CardSkeleton";
 import "./Products.scss";
 
 import HandleCheckbox, {
@@ -16,7 +17,7 @@ import HandleCheckbox, {
 } from "../../utils/HandleCheckbox";
 
 function Products() {
-  const { subCategories, renderedProducts } = useSelector(
+  const { subCategories, renderedProducts, isLoading } = useSelector(
     (store) => store.products
   );
   const [selectedSortOption, setSelectedSortOption] = useState("SORT");
@@ -114,10 +115,14 @@ function Products() {
           )}
         </div>
 
-        <div className="category-products d-flex flex-wrap justify-content-center justify-content-sm-start gap-4 ">
-          {renderedProducts.slice(page * 8 - 8, page * 8).map((product) => {
-            return <Card product={product} key={product._id} />;
-          })}
+        <div className="category-products d-flex flex-wrap justify-content-center justify-content-sm-start gap-2 gap-sm-3 ">
+          {isLoading ? (
+            <CardSkeleton />
+          ) : (
+            renderedProducts.slice(page * 8 - 8, page * 8).map((product) => {
+              return <Card product={product} key={product._id} />;
+            })
+          )}
         </div>
         <div className="pagination">
           {<CustomPagination setPage={setPage} />}

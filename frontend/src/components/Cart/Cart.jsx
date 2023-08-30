@@ -9,6 +9,9 @@ import {
 } from "../../redux/Reducers/CartSlice";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "./Cart.scss";
+
+import { useAuth } from "@clerk/clerk-react";
+
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Cart({ open }) {
@@ -17,6 +20,7 @@ export default function Cart({ open }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { isSignedIn } = useAuth();
   let total = 0;
 
   //Incrementing item quantity
@@ -106,21 +110,23 @@ export default function Cart({ open }) {
                   <p>{total.toFixed(2)} ZAR</p>
                 </div>
 
-                <button
-                  className="checkout-btn border-0 text-white"
-                  onClick={() => {
-                    dispatch(toggleCart());
-                    navigate("/checkout", {
-                      state: {
-                        prevPath: location.pathname,
-                        items: cartItems,
-                        total,
-                      },
-                    });
-                  }}
-                >
-                  CHECKOUT
-                </button>
+                {isSignedIn && (
+                  <button
+                    className="checkout-btn border-0 text-white"
+                    onClick={() => {
+                      dispatch(toggleCart());
+                      navigate("/checkout", {
+                        state: {
+                          prevPath: location.pathname,
+                          items: cartItems,
+                          total,
+                        },
+                      });
+                    }}
+                  >
+                    CHECKOUT
+                  </button>
+                )}
               </>
             ) : (
               <div>
