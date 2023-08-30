@@ -12,17 +12,9 @@
       margin-top: 20px;
       padding: 20px;
 
-      .col {
-        width: 25%;
-
-        div {
-          margin-bottom: 5px;
-        }
-
-        .custom-link {
-          color: white;
-          margin-bottom: 40px;
-        }
+      .custom-link {
+        color: white;
+        margin-bottom: 40px;
       }
     }
 
@@ -35,10 +27,9 @@
       justify-content: center;
       align-items: center;
 
-      div {
-        margin-left: 20px;
-        font-size: large;
-        cursor: pointer;
+      .copyright {
+        letter-spacing: 2px;
+        font-weight: lighter;
       }
     }
   }
@@ -49,14 +40,10 @@
   .main-footer {
     .wrapper {
       .top {
-        flex-direction: row;
         flex-wrap: wrap;
-        .col {
-          width: fit-content;
 
-          #about {
-            margin: 20px 0;
-          }
+        .contact {
+          margin-top: -50px;
         }
       }
     }
