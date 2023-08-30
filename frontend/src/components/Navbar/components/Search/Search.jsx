@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MdSearch } from "react-icons/md";
@@ -6,7 +6,7 @@ import { clearState } from "../../../../redux/Reducers/ProductSlice";
 import { COMPONENTS } from "../../../Constants/Constants";
 import FetchData from "../../../../utils/FetchData";
 import useDebounce from "./useDebounce";
-import Offcanvas from "react-bootstrap/Offcanvas";
+import { Offcanvas, Form, FormControl } from "react-bootstrap";
 import "./Search.scss";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -20,11 +20,7 @@ export default function Search() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => {
-    setShow(true);
-    const autofocusInput = document.getElementById("offcanvas-input");
-    autofocusInput.focus();
-  };
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     if (debouncedText.trim().length > 0) {
@@ -44,7 +40,6 @@ export default function Search() {
       </div>
 
       <input
-        autoFocus={true}
         type="text"
         className="custom-input"
         value={searchInput}

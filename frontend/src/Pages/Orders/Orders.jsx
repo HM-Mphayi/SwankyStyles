@@ -39,6 +39,7 @@ export default function Orders() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getOrders();
   }, [isLoaded, isSignedIn]);
 

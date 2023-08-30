@@ -5,21 +5,24 @@ import Card from "../../components/Card/Card";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
 import "./Home.scss";
+import CardSkeleton from "../../components/Card/CardSkeleton/CardSkeleton";
 
 export default function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const FetchProducts = async () => {
+  async function FetchProducts() {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/product/home`
       );
       setProducts(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,10 +45,14 @@ export default function Home() {
       <section className="featured-products pt-5">
         <Container>
           <span className="fw-bold">FEATURED PRODUCTS</span>
-          <div className="items mt-3 d-flex flex-wrap justify-content-around">
-            {products.map((product) => {
-              return <Card product={product} key={product._id} />;
-            })}
+          <div className="items mt-3 d-flex flex-wrap justify-content-around ">
+            {isLoading ? (
+              <CardSkeleton />
+            ) : (
+              products.map((product) => {
+                return <Card product={product} key={product._id} />;
+              })
+            )}
           </div>
         </Container>
       </section>

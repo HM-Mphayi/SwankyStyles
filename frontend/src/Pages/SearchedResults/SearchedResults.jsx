@@ -7,13 +7,14 @@ import { RxMixerHorizontal } from "react-icons/rx";
 import { checkBoxState } from "../../utils/HandleCheckbox";
 
 import Card from "../../components/Card/Card";
+import CardSkeleton from "../../components/Card/CardSkeleton/CardSkeleton";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import HandleCheckbox, { ClearFilters } from "../../utils/HandleCheckbox";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "./SearchedResults.scss";
 
 export default function SearchedResults() {
-  const { categories, renderedProducts } = useSelector(
+  const { categories, renderedProducts, isLoading } = useSelector(
     (store) => store.products
   );
   const [selectedSortOption, setSelectedSortOption] = useState("SORT");
@@ -110,8 +111,10 @@ export default function SearchedResults() {
           <p className="text-black-50 fw-bold">items</p>
         </div>
 
-        <div className="d-flex flex-wrap justify-content-around justify-content-center justify-content-sm-start gap-4 ">
-          {renderedProducts.length > 0 ? (
+        <div className="d-flex flex-wrap justify-content-around justify-content-center justify-content-sm-start gap-2 gap-sm-3 ">
+          {isLoading ? (
+            <CardSkeleton />
+          ) : renderedProducts.length > 0 ? (
             renderedProducts.slice(page * 8 - 8, page * 8).map((product) => {
               return <Card product={product} key={product._id} />;
             })
