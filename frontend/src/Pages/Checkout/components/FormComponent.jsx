@@ -37,6 +37,10 @@ export default function FormComponent({ total, items }) {
   }
 
   async function handleSubmit(e) {
+    //Disabling the submit order button to prevent placing multiple orders
+    submitButton.disabled = true;
+    submitButton.style.cursor = "not-allowed";
+
     if (form[0].checkValidity()) {
       if (
         orderDetails.contactNumber !== "" &&
@@ -53,9 +57,6 @@ export default function FormComponent({ total, items }) {
           const response = await axios.post(`${API_URL}/order`, orderDetails);
 
           if (response.status === 200) {
-            //Disabling the submit order button to prevent multiple orders
-            submitButton.disabled = true;
-            submitButton.style.cursor = "not-allowed";
             dispatch(clearCart());
 
             toast.success("Order successfully");

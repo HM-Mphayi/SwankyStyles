@@ -30,10 +30,11 @@ export default function Orders() {
 
   function getDeliveryDate(orderDate) {
     const orderDate_ = new Date(orderDate);
-    const deliveryDate = new Date();
+    const deliveryDate = new Date(orderDate_);
 
     deliveryDate.setDate(orderDate_.getDate() + 5);
-    return `${deliveryDate.getDay()} ${deliveryDate.toLocaleString("default", {
+
+    return `${deliveryDate.getDate()} ${deliveryDate.toLocaleString("default", {
       month: "long",
     })} ${deliveryDate.getFullYear()}`;
   }
