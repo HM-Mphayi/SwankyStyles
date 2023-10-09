@@ -45,7 +45,7 @@ export default function Home() {
       <section className="featured-products pt-5">
         <Container>
           <span className="fw-bold">FEATURED PRODUCTS</span>
-          <div className="items mt-3 d-flex flex-wrap justify-content-around ">
+          <div className="items mt-3 d-flex flex-wrap justify-content-around gap-0 gap-3">
             {isLoading ? (
               <CardSkeleton />
             ) : (

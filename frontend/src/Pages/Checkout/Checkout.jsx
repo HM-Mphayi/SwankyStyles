@@ -20,7 +20,7 @@ export default function Checkout() {
         >
           <BiArrowBack className="icon-back p-2" />
         </div>
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/")}>
           <img src={logo} alt="logo" />
         </div>
         <hr />
