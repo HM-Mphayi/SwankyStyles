@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Woman from "../../images/Home.png";
+import Woman from "../../images/Home.jpg";
 import Card from "../../components/Card/Card";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
