@@ -9,6 +9,7 @@ import FetchData from "../../utils/FetchData";
 import Card from "../../components/Card/Card";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import CardSkeleton from "../../components/Card/CardSkeleton/CardSkeleton";
+import Skeleton from "@mui/material/Skeleton";
 import "./Products.scss";
 
 import HandleCheckbox, {
@@ -107,7 +108,9 @@ function Products() {
         </div>
 
         <div className="d-flex gap-1 ms-sm-2 ms-4 mt-2">
-          {renderedProducts.length > 0 && (
+          {isLoading ? (
+            <Skeleton variant="rectangular" width={60} className="mb-2" />
+          ) : (
             <>
               <p className="fw-bolder ">{renderedProducts.length}</p>
               <p className="text-black-50 fw-bold">items</p>

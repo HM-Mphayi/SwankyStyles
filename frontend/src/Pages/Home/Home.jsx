@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Woman from "../../images/Home.png";
+import Woman from "../../images/Home.jpg";
 import Card from "../../components/Card/Card";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
@@ -45,7 +45,7 @@ export default function Home() {
       <section className="featured-products pt-5">
         <Container>
           <span className="fw-bold">FEATURED PRODUCTS</span>
-          <div className="items mt-3 d-flex flex-wrap justify-content-around ">
+          <div className="items mt-3 d-flex flex-wrap justify-content-around gap-0 gap-3">
             {isLoading ? (
               <CardSkeleton />
             ) : (

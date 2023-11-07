@@ -13,7 +13,7 @@ export default function Card({ product }) {
           className="img object-fit-fill"
           onClick={() => navigate(`/product/${product._id}`)}
         >
-          <img src={product.image} alt="item" />
+          <img src={product.image} alt={product.name} />
         </div>
 
         <div
