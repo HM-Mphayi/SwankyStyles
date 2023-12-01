@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { CATEGORIES } from "../../components/Constants/Constants";
 import Woman from "../../images/Home.jpg";
 import Card from "../../components/Card/Card";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
-import "./Home.scss";
 import CardSkeleton from "../../components/Card/CardSkeleton/CardSkeleton";
+import "./Home.scss";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -61,46 +62,14 @@ export default function Home() {
       <h3 className="position-absolute divider">BROWSE CATEGORIES</h3>
 
       <section className="categories d-flex flex-wrap justify-content-around mt-5">
-        <div
-          className="category"
-          onClick={() => navigate("products/subcategory/Dress")}
-        >
-          <img
-            src="https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399338/Swanky%20Styles/steptodown.com508369_anw8j0.jpg"
-            alt="dress"
-          />
-          <h4>SHOP DRESSES</h4>
-        </div>
-        <div
-          className="category"
-          onClick={() => navigate("products/subcategory/Pants")}
-        >
-          <img
-            src="https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399338/Swanky%20Styles/steptodown.com262307_ilyidu.jpg"
-            alt="pants"
-          />
-          <h4>SHOP PANTS</h4>
-        </div>
-        <div
-          className="category"
-          onClick={() => navigate("products/subcategory/Top")}
-        >
-          <img
-            src="https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399338/Swanky%20Styles/steptodown.com336758_hkk2x6.jpg"
-            alt="tops"
-          />
-          <h4>SHOP TOPS</h4>
-        </div>
-        <div
-          className="category"
-          onClick={() => navigate("products/subcategory/Jacket")}
-        >
-          <img
-            src="https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399339/Swanky%20Styles/steptodown.com442016_fsq8jg.jpg"
-            alt="Jacket"
-          />
-          <h4>SHOP JACKETS</h4>
-        </div>
+        {CATEGORIES.map((category) => {
+          return (
+            <div className="category" onClick={() => navigate(category.PATH)}>
+              <img src={category.Img_Src} alt={category.name} />
+              <h4>SHOP {category.name}</h4>
+            </div>
+          );
+        })}
       </section>
     </main>
   );

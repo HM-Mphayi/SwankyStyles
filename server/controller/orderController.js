@@ -28,8 +28,19 @@ const getUserOrders = async (req, res) => {
   }
 };
 
+const getOrderById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const orders = await Order.find({ _id:id }).sort({ createdAt: -1 });
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).send("Something went wrong");
+  }
+};
+
 module.exports = {
   createOrder,
   getAllOrders,
   getUserOrders,
+  getOrderById,
 };
