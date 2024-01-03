@@ -64,7 +64,7 @@ export default function Home() {
       <section className="categories d-flex flex-wrap justify-content-around mt-5">
         {CATEGORIES.map((category) => {
           return (
-            <div className="category" onClick={() => navigate(category.PATH)}>
+            <div className="category" onClick={() => navigate(category.PATH)} key={category.name}>
               <img src={category.Img_Src} alt={category.name} />
               <h4>SHOP {category.name}</h4>
             </div>

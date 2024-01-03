@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaCcVisa } from "react-icons/fa";
-import { useUser } from "@clerk/clerk-react";
+import { useUser,  } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
@@ -79,6 +79,9 @@ export default function FormComponent({ total, items }) {
   useEffect(() => {
     if (isLoaded) {
       orderDetails.userID = user.id;
+      order.email = user.emailAddresses[0].emailAddress;
+      order.recipientName = user.fullName
+      console.log(user.firstName);
     }
 
     setOrderDetails((prev) => ({
