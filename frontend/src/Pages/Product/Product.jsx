@@ -7,22 +7,26 @@ import { toggleCart, addItemToCart } from "../../redux/Reducers/CartSlice";
 import { SIZES } from "../../components/Constants/Constants";
 import "./Product.scss";
 import axios from "axios";
+import { Skeleton } from "@mui/material";
 
 function Product() {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const dispatch = useDispatch();
 
   async function fetchProduct() {
     try {
+
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/product/` + id
       );
 
       setProduct(response.data[0]);
+      setIsLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -42,12 +46,19 @@ function Product() {
   return (
     <main className="product d-flex justify-content-between w-100 flex-sm-row flex-column">
       <section className="left mt-5 ms-sm-3">
+        {isLoading ? <Skeleton variant="rectangular" className="img-skeleton" />: (
         <img src={product.image} alt="item" />
+        )}
       </section>
 
       <section className="right ">
+        {isLoading ? <Skeleton variant="rectangular" width={250} height={40} className="mt-5" />: (
         <h1 className="mt-5 fw-bolder ">{product.name}</h1>
-        <p className="price fs-3 fw-bold">{product.price} ZAR</p>
+        )}
+        {isLoading ? <Skeleton variant="rectangular" width={130} height={30} className="mt-3 mb-2" /> : (
+          <p className="price fs-3 fw-bold">{product.price} ZAR</p>
+        )}
+
         <p className="desc">
           {" "}
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

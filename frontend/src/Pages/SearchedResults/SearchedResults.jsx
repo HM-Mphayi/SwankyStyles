@@ -63,6 +63,10 @@ export default function SearchedResults() {
     }
   }, [searchText]);
 
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
   return (
     <main className="searched-products d-flex w-100">
       <section className="left h-50 ms-2">
