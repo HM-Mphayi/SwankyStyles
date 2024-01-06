@@ -20,25 +20,25 @@ export const CATEGORIES = [
   {
     PATH: "products/subcategory/Dress",
     Img_Src:
-      "https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399338/Swanky%20Styles/steptodown.com508369_anw8j0.jpg",
+      "https://ik.imagekit.io/tmhmq0jvv/steptodown.com508369_anw8j0.jpg?tr=w-400",
     name: "DRESSES",
   },
   {
     PATH: "products/subcategory/Pants",
     Img_Src:
-      "https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399338/Swanky%20Styles/steptodown.com262307_ilyidu.jpg",
+      "https://ik.imagekit.io/tmhmq0jvv/steptodown.com262307_ilyidu.jpg?tr=w-400",
     name: "PANTS",
   },
   {
     PATH: "products/subcategory/Top",
     Img_Src:
-      "https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399338/Swanky%20Styles/steptodown.com336758_hkk2x6.jpg",
+      "https://ik.imagekit.io/tmhmq0jvv/steptodown.com336758_hkk2x6.jpg?tr=w-400",
     name: "TOPS",
   },
   {
     PATH: "products/subcategory/Jacket",
     Img_Src:
-      "https://res.cloudinary.com/dwtvyau3c/image/upload/v1688399339/Swanky%20Styles/steptodown.com442016_fsq8jg.jpg",
+      "https://ik.imagekit.io/tmhmq0jvv/steptodown.com442016_fsq8jg.jpg?tr=w-350",
     name: "JACKETS",
   },
 ];
